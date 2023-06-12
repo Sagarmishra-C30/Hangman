@@ -37,11 +37,14 @@ def score():
 def display_score():
     # Display score, winner, and loser
     if score1 > score2:
-        print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\nWinner is {player1_name}\n')
+        print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\n\n' +
+        f'{"*"*20}  Winner is {player1_name}  {"*"*20}'.center(100) + '\n')
     elif score1 < score2:
-        print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\nWinner is {player2_name}\n')
+        print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\n\n' + 
+        f'{"*"*20}  Winner is {player2_name}  {"*"*20}'.center(100) + '\n')
     else:
-        print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\nDraw\n')
+        print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\n\n' +
+        f'{"*"*20}  Draw  {"*"*20}'.center(100) + '\n')
 
 def deduct(lives, fill_word):
     # Deduct player's life if guessed wrong
@@ -108,11 +111,11 @@ counting_ = 0
 
 def two_player():
     global counting_, dif, num_players, player1_name, player2_name
-    num_players = 1
+    num_players = 2
     string = next_player()
     word_guess(string, dif, num_players)
     counting_ += 1
-    # If both players have had their chance, ask if they want to play further. If only one player played, let the other player play two
+    # If both players have had their chance, ask if they want to play further. If only one player played, let the other player play too
     if counting_ % 2 == 0:
         res = input('Do you want to continue playing?\nYes[y]\t\tNo[n]\t\t"cls" - to clear screen\n>> ').strip()
         if res.lower() in ['yes', 'y']:
@@ -177,7 +180,7 @@ def word_guess(string, lives=10, number_of_player=1):
 
         print(f'Total lives: {lives}\t{heart * lives}\n'.encode(sys.stdout.encoding, errors='replace').decode(sys.stdout.encoding))
 
-    print(f'Your lives are over. You lose.\nThe correct word is \'{string}\'.\nBetter luck next time.')
+    print(f'Your lives are over. You lose.\nThe correct word is \'{string}\'.\nBetter luck next time.\n\n')
 
 
 

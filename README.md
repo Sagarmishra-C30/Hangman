@@ -11,7 +11,7 @@ Hangman is a classic word-guessing game where players try to guess a hidden word
    - Enter "exit" to exit the game.
 3. If you choose single-player mode:
    - Select the difficulty level: easy, normal, or hard.
-   - Enter a word of 2 to 7 characters for the other player to guess.
+   - A random word word of 3 to 15 will be chosen by computer for the player to guess.
    - The game will begin, and you need to guess the word within the given number of lives.
 4. If you choose two-player mode:
    - Enter the names of the two players.
@@ -49,3 +49,15 @@ Choose the difficulty level based on your preference and skill level.
 - The game uses Unicode character "\u2665" to display a heart symbol as a representation of lives.
 
 Have fun playing Hangman!
+
+## Contributing
+
+Contributions to the Hangman Game project are welcome and encouraged! If you would like to contribute, please follow these steps:
+
+1. Fork the repository on GitHub.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with descriptive commit messages.
+4. Push your changes to your forked repository.
+5. Submit a pull request to the main repository.
+
+Please ensure that your code adheres to the existing coding style and conventions used in the project.
