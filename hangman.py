@@ -9,11 +9,17 @@ if sys.stdout.encoding is None:
     # Set the default encoding to UTF-8
     sys.stdout.reconfigure(encoding='utf-8')
 
+#global useful variables
 heart = '\u2665'  # unicode char for heart
 Player1 = True
 Player2 = False
 score1, score2 = 0, 0
 num_players = 1
+dif = None
+player1_name = None
+player2_name = None
+
+
 
 def difficulty():
     # Set difficulty level
@@ -65,18 +71,23 @@ def taking_input(player_name):
         return string.lower()
 
 def play_again():
+    global dif
     # Ask player whether to play again or not
     while True:
-        response = input('\nDo you want to play again?\nType - a) Yes[y]\t\tb) No\t\t"cls" - to clear screen:\n>>')
+        response = input('\nDo you want to play again?\nType - a) Yes[y]\t\tb) No\t\t"cls" - to clear screen \
+        \t\t"reset" - to reset difficulty\n>>')
         if response.lower() == 'yes' or response.lower() == 'y':
-            one_player() if num_players == 1 else two_player()
+            one_player()
         elif response.lower() == 'cls':
             if os.name == "nt":
                 os.system('cls')
             else:
                 os.system('clear')
+        elif response.lower() == 'reset':
+            dif = difficulty()
+            one_player()
         else:
-            print('Thank you for playing.')
+            print('\nThank you for playing.')
             exit()
 
 def next_player():
@@ -183,21 +194,24 @@ def word_guess(string, lives=10, number_of_player=1):
     print(f'Your lives are over. You lose.\nThe correct word is \'{string}\'.\nBetter luck next time.\n\n')
 
 
-
-
-if __name__ == "__main__":
+def main():
+    global dif, player1_name, player2_name
     print('\n' + f'{"*"*10}  welcome to the Hangman Game  {"*"*10}'.center(100) + '\n\n')
     play = input('"1"- for 1-Player game\t\t"2" for 2-Player game\t\t"exit" - to exit the game\n>> ').strip()
-    if play == '1':
+    if play[0] == '1':
         dif = difficulty()
         print()
         one_player()
-    elif play == '2':
+    elif play[0] == '2':
         player1_name = input("enter your name player 1:\n>> ")
         player2_name = input("enter your name player 2:\n>> ")
         dif = difficulty()
         two_player()
     else:
+        print("Please select correct option")
         exit()
+
+if __name__ == "__main__":
+    main()
 
     
