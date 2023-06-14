@@ -158,10 +158,13 @@ def difficulty():
 def score():
     # Score of player
     global Player1, Player2, score1, score2
+    correct_guess_str = "{} You guessed correctly!!!\n"
     if Player1:
         score1 += 1
+        print(correct_guess_str.format(player1_name))
     elif Player2:
         score2 += 1
+        print(correct_guess_str.format(player2_name))
 
 def display_score():
     # Display score, winner, and loser
@@ -309,6 +312,7 @@ def word_guess(string, lives=10, number_of_player=1):
 
     print(' '.join(fill_word))
     print()
+    guessed_letters = []
     start_time = time.time()  # Start the timer for the round
     
     while lives > 0:
@@ -328,6 +332,8 @@ def word_guess(string, lives=10, number_of_player=1):
             provide_hint(word, fill_word)
             print('_'*50 + '\n')
             continue
+        elif guess in guessed_letters:
+            print("You already guessed that letter.\n")
         else:
             lives = process_guess(guess, string, fill_word, lives)
             if guess == string:
@@ -337,6 +343,7 @@ def word_guess(string, lives=10, number_of_player=1):
                 print('You won') if num_players == 1 else score()
                 return
         
+        guessed_letters.append(guess)
         # Display the ticking timer to the user
         elapsed_time = time.time() - start_time
         remaining_time = round_time_limit - elapsed_time
@@ -345,13 +352,28 @@ def word_guess(string, lives=10, number_of_player=1):
         print(f'Total lives: {lives}\t{heart * lives}\n'.encode(sys.stdout.encoding, errors='replace').decode(sys.stdout.encoding))
         print('_'*50 + '\n')
 
-    print(f'Your lives are over. You lose.\nThe correct word is \'{string}\'.\nBetter luck next time.\n\n')
+    if num_players == 1:
+        print(f'Your lives are over. You lose.\nThe correct word is \'{string}\'.\nBetter luck next time.\n\n')
+    else:
+        if Player1:
+            print(f"{player1_name}, your guess was wrong.\nThe correct word is '{string}'\n")
+        else:
+            print(f"{player2_name}, your guess was wrong.\nThe correct word is '{string}'\n")
 
-
+game_title = """
+#     #    #    #     #  #####  #     #    #    #     #     #####     #    #     # ####### 
+#     #   # #   ##    # #     # ##   ##   # #   ##    #    #     #   # #   ##   ## #       
+#     #  #   #  # #   # #       # # # #  #   #  # #   #    #        #   #  # # # # #       
+####### #     # #  #  # #  #### #  #  # #     # #  #  #    #  #### #     # #  #  # #####   
+#     # ####### #   # # #     # #     # ####### #   # #    #     # ####### #     # #       
+#     # #     # #    ## #     # #     # #     # #    ##    #     # #     # #     # #       
+#     # #     # #     #  #####  #     # #     # #     #     #####  #     # #     # #######
+"""
 
 def main():
     global word_length, dif, player1_name, player2_name
-    print('\n' + f'{"*"*10}  welcome to the Hangman Game  {"*"*10}'.center(100) + '\n\n')
+    print(game_title)
+    print('\n' + f'{"*"*10}  welcome to Hangman Game  {"*"*10}'.center(100) + '\n\n')
     play = input('"1"- for 1-Player game\t\t"2" for 2-Player game\t\t"exit" - to exit the game\n>> ').strip()
     if play == '1':
         word_length, dif = difficulty()
