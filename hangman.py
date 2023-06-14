@@ -111,7 +111,7 @@ fireworks = r"""
  !_[]![_]_!_[]![]_!_[__]![]![_]![_][I_]!//_:_\\![]I![_][_]!_[_]![]_!_[__]!
  -----------------------------------"---''''```---"-----------------------
  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |= _ _:_ _ =| _ _ _ _ _ _ _ _ _ _ _ _
-                                     |=    :    =|                Valkyrie
+                                     |=    :    =|                
 _____________________________________L___________J________________________
 --------------------------------------------------------------------------
 """
@@ -128,15 +128,15 @@ cheers = r'''
           / `-.__.-\`-._    ,",' ;
          / /|    ___\-._`-.; /  ./-.  
         ( ( |.-"`   `'\ '-( /  //.-' congrats on winning!.
-         \ \/    {}{}  |   /-. /.-'   You saved a hangman from dying today!.
+         \ \/    {}{}  |   /-. /.-'   You saved a stickman from dying today!.
           \|           /   '..'          aren't you a hero?
            \        , /
            ( __`;-;'__`)
            `//'`   `||`
           _//       ||
-  .-"-._,(__)     .(__).-""-.
- /          \    /           \
- \          /    \           /
+  .-"-._,(__)     .(__).-""-.                     O/    - Thankyou, u spared my life.
+ /          \    /           \                   /| 
+ \          /    \           /                   / \
   `'-------`      `--------'`
 '''
 
@@ -279,7 +279,7 @@ def display_score():
     else:
         print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\n\n' +
         f'{"*"*20}  Draw  {"*"*20}'.center(100) + '\n')
-        print("You both need more practice!\nStop playing and study!\or are you both ready to challenge another round?")
+        print("You both need more practice!\nStop playing and study!\or are you both ready to go another round?")
     
 
 def deduct(lives):
@@ -300,12 +300,13 @@ def taking_input(player_name):
         return string.lower()
 
 def play_again():
-    global word_length, dif
+    global word_length, dif, hint_counter
     # Ask player whether to play again or not
     while True:
         response = input('\nDo you want to play again?\nType - a) Yes[y]\t\tb) No\t\t"cls" - to clear screen \
         \t\t"reset" - to reset difficulty\n>>')
         if response.lower() == 'yes' or response.lower() == 'y':
+            hint_counter = 3
             one_player()
         elif response.lower() == 'cls':
             if os.name == "nt":
