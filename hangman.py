@@ -21,6 +21,7 @@ dif = None
 word_length = 0
 player1_name = None
 player2_name = None
+hint_counter = 3  # Set the initial number of hints
 
 difficulties = {
     'easy': {'word_length': (3, 10), 'difficulty': 10},
@@ -112,9 +113,10 @@ def select_category():
         display_categories()
         category_choice = input("Select a category (enter the corresponding number): ")
         if category_choice in categories:
+            print(f"Category selected -> {categories[category_choice]['name'].upper()}\n")
             return category_choice
         else:
-            print("Invalid category choice. Defaulting to 0 - Random.\n")
+            print("Invalid category choice. Defaulting to 0 - Random.\nCategory selected -> RANDOM\n")
             return "0"
 
 def load_words_from_file(file_path):
@@ -122,18 +124,35 @@ def load_words_from_file(file_path):
         word_list = [word.strip() for word in f if word_length[0] <= len(word.strip()) <= word_length[1]]
     return word_list
 
+def provide_hint(word, fill_word):
+    global hint_counter
+
+    # Check if there are remaining hints
+    if hint_counter > 0:
+        hint_counter -= 1  # Decrease the hint counter by 1
+        indices = [index for index, letter in enumerate(word) if fill_word[index] == "__"]
+        random_index = random.choice(indices)  # Select a random hidden letter index
+        fill_word[random_index] = word[random_index]  # Reveal the letter at the selected index
+        print("Hint: One letter has been revealed.\n")
+        print(" ".join(fill_word))  # Display the updated fill_word
+    else:
+        print("Sorry, no more hints available.")
+
 
 def difficulty():
     # Set difficulty level
     difficulty = input('Choose difficulty level:\na) Easy[e]\t\tb) Normal[n]\t\tc) Hard[h]\n').strip()
-    if difficulty.lower() in ['easy', 'e']:
+    if difficulty.lower() in ['easy', 'e', '1']:
+        print("difficulty selected to EASY")
         return difficulties['easy']['word_length'], difficulties['easy']['difficulty']
-    if difficulty.lower() in ['hard', 'h']:
+    if difficulty.lower() in ['hard', 'h', '3']:
+        print("difficulty selected to HARD")
         return difficulties['hard']['word_length'], difficulties['hard']['difficulty']
-    elif difficulty.lower() in ['normal', 'n']:
+    elif difficulty.lower() in ['normal', 'n', '2']:
+        print("difficulty selected to NORMAL")
         return difficulties['normal']['word_length'], difficulties['normal']['difficulty']
     else:
-        print('Invalid choice. Defaulting to easy difficulty.')
+        print('Invalid choice. Defaulting to easy difficulty.\n"difficulty selected to EASY"')
         return difficulties['easy']['word_length'], difficulties['easy']['difficulty']
 
 def score():
@@ -157,9 +176,10 @@ def display_score():
         f'{"*"*20}  Draw  {"*"*20}'.center(100) + '\n')
 
 def deduct(lives):
+    lives -= 1
     # Deduct player's life if guessed wrong
     print(f'1 live deducted. Lives left: {lives}\t{heart * lives}'.encode(sys.stdout.encoding, errors='replace').decode(sys.stdout.encoding))
-    return lives - 1
+    return lives
 
 def taking_input(player_name):
     # Take input and hide the input while taking input so that other player doesn't cheat
@@ -293,18 +313,21 @@ def word_guess(string, lives=10, number_of_player=1):
     
     while lives > 0:
         # Calculate the remaining time
-        elapsed_time = time.time() - start_time
-        remaining_time = round_time_limit - elapsed_time
         guess = get_user_input()
         
         # Check if the round time limit has been exceeded
         if is_round_time_up(start_time):
             print("\nROUND TIME'S UP!")
             break
+            
         if guess is None:
             # Time's up, handle accordingly (e.g., deduct a life, end the game, etc.)
             print("You took too long to guess!")
-            deduct(lives)
+            lives = deduct(lives)
+        elif guess.lower() == "hint":   # Check if the player wants a hint
+            provide_hint(word, fill_word)
+            print('_'*50 + '\n')
+            continue
         else:
             lives = process_guess(guess, string, fill_word, lives)
             if guess == string:
@@ -315,6 +338,8 @@ def word_guess(string, lives=10, number_of_player=1):
                 return
         
         # Display the ticking timer to the user
+        elapsed_time = time.time() - start_time
+        remaining_time = round_time_limit - elapsed_time
         print(f"Time remaining: {format_time(remaining_time)}")
         print(' '.join(fill_word))
         print(f'Total lives: {lives}\t{heart * lives}\n'.encode(sys.stdout.encoding, errors='replace').decode(sys.stdout.encoding))
@@ -331,6 +356,7 @@ def main():
     if play == '1':
         word_length, dif = difficulty()
         print(f'You have total - {dif} lives\t{heart * dif}\n'.encode(sys.stdout.encoding, errors='replace').decode(sys.stdout.encoding))
+        print(f"[[ You have ***{hint_counter} hints*** available per round.\nTo use hints simply type -> 'hint' and hit enter.]]\n")
         one_player()
     elif play == '2':
         player1_name = input("enter your name player 1:\n>> ")
