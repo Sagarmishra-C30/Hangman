@@ -67,6 +67,105 @@ round_time_limit = 180  # 3 minutes
 # Define the time limit (in seconds) for each guess
 time_limit = 15
 
+
+hang = r'''
+ ___________.._______      You are on a roll, my friend! 
+| .__________))______|                 How do you do it?
+| | / /      ||
+| |/ /       ||
+| | /        ||.-''.
+| |/         |/  _  \
+| |          ||  `/,|  Everytime you play Hangman,
+| |          (\\`_.'    a stickman family is left 
+| |         .-`--'.              without a father.
+| |        /Y . . Y\
+| |       // |   | \\
+| |      //  | . |  \\        Congrants on your impressive
+| |    (')   |   |  (`)        stickman extermination skills!
+| |          ||'||             
+| |          || ||        
+| |          || ||        You've got some serious talent for turning
+| |          || ||         innocent stickman into twisted stick pretzels
+| |         / | | \
+""""""""""|_`-' `-' 
+|"|"""""""\ \         
+| |        \ \        We should consider hiring you as their official terminator.
+: :         \ \       
+. .          `'      
+
+'''
+fireworks = r"""
+                        We are celebrating your victory
+⠀                                       .
+              . .                     -:-             .  .  .
+            .'.:,'.        .  .  .     ' .           . \ | / .
+            .'.;.`.       ._. ! ._.       \          .__\:/__.
+             `,:.'         ._\!/_.                     .';`.      . ' .
+             ,'             . ! .        ,.,      ..======..       .:.
+            ,                 .         ._!_.     ||::: : | .        ',
+     .====.,                  .           ;  .~.===: : : :|   ..===.
+     |.::'||      .=====.,    ..=======.~,   |"|: :|::::::|   ||:::|=====|
+  ___| :::|!__.,  |:::::|!_,   |: :: ::|"|l_l|"|:: |:;;:::|___!| ::|: : :|
+ |: :|::: |:: |!__|; :: |: |===::: :: :|"||_||"| : |: :: :|: : |:: |:::::|
+ |:::| _::|: :|:::|:===:|::|:::|:===F=:|"!/|\!"|::F|:====:|::_:|: :|::__:|
+ !_[]![_]_!_[]![]_!_[__]![]![_]![_][I_]!//_:_\\![]I![_][_]!_[_]![]_!_[__]!
+ -----------------------------------"---''''```---"-----------------------
+ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ |= _ _:_ _ =| _ _ _ _ _ _ _ _ _ _ _ _
+                                     |=    :    =|                Valkyrie
+_____________________________________L___________J________________________
+--------------------------------------------------------------------------
+"""
+
+cheers = r'''
+             .-"""-.
+            /       \
+            \       /
+     .-"""-.-`.-.-.<  _
+    /      _,-\ O_O-_/ )  ~champagne, monsieur?
+    \     / ,  `   . `|
+     '-..-| \-.,__~ ~ /          .,
+           \ `-.__/  /          /"/
+          / `-.__.-\`-._    ,",' ;
+         / /|    ___\-._`-.; /  ./-.  
+        ( ( |.-"`   `'\ '-( /  //.-' congrats on winning!.
+         \ \/    {}{}  |   /-. /.-'   You saved a hangman from dying today!.
+          \|           /   '..'          aren't you a hero?
+           \        , /
+           ( __`;-;'__`)
+           `//'`   `||`
+          _//       ||
+  .-"-._,(__)     .(__).-""-.
+ /          \    /           \
+ \          /    \           /
+  `'-------`      `--------'`
+'''
+
+win = fireworks + '\n\n' + cheers
+
+game_title_1 = r"""
+ _                                             
+| |                                            
+| |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  
+| '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+| | | | (_| | | | | (_| | | | | | | (_| | | | |
+|_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                    __/ |                      
+                   |___/                       
+"""
+
+game_title_2 = r"""
+#     #    #    #     #  #####  #     #    #    #     #     #####     #    #     # ####### 
+#     #   # #   ##    # #     # ##   ##   # #   ##    #    #     #   # #   ##   ## #       
+#     #  #   #  # #   # #       # # # #  #   #  # #   #    #        #   #  # # # # #       
+####### #     # #  #  # #  #### #  #  # #     # #  #  #    #  #### #     # #  #  # #####   
+#     # ####### #   # # #     # #     # ####### #   # #    #     # ####### #     # #       
+#     # #     # #    ## #     # #     # #     # #    ##    #     # #     # #     # #       
+#     # #     # #     #  #####  #     # #     # #     #     #####  #     # #     # #######
+"""
+
+
+
+
 # Function to get user input within the time limit
 def get_user_input():
     print('Guess a letter or the whole word:')
@@ -159,6 +258,7 @@ def score():
     # Score of player
     global Player1, Player2, score1, score2
     correct_guess_str = "{} You guessed correctly!!!\n"
+    # print(win)
     if Player1:
         score1 += 1
         print(correct_guess_str.format(player1_name))
@@ -169,14 +269,18 @@ def score():
 def display_score():
     # Display score, winner, and loser
     if score1 > score2:
+        print(win)
         print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\n\n' +
         f'{"*"*20}  Winner is {player1_name}  {"*"*20}'.center(100) + '\n')
     elif score1 < score2:
+        print(win)
         print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\n\n' + 
         f'{"*"*20}  Winner is {player2_name}  {"*"*20}'.center(100) + '\n')
     else:
         print(f'{player1_name} score = {score1}\t\t{player2_name} score = {score2}\n\n' +
         f'{"*"*20}  Draw  {"*"*20}'.center(100) + '\n')
+        print("You both need more practice!\nStop playing and study!\or are you both ready to challenge another round?")
+    
 
 def deduct(lives):
     lives -= 1
@@ -213,7 +317,7 @@ def play_again():
             print(f'You have total - {dif} lives\t{heart * dif}\n'.encode(sys.stdout.encoding, errors='replace').decode(sys.stdout.encoding))
             one_player()
         else:
-            print('\nThank you for playing.')
+            print('\nThanks for playing\t\t' + game_title_1)
             exit()
 
 def next_player():
@@ -270,7 +374,7 @@ def two_player():
                 os.system('clear')
         else:
             display_score()
-            print('Thanks for playing.')
+            print('\nThanks for playing\t\t' + game_title_1)
             exit()
     else:
         two_player()
@@ -337,10 +441,10 @@ def word_guess(string, lives=10, number_of_player=1):
         else:
             lives = process_guess(guess, string, fill_word, lives)
             if guess == string:
-                print('You won') if num_players == 1 else score()
+                print(f'You won\n\n{win}') if num_players == 1 else score()
                 return
             elif is_word_complete(fill_word, word):
-                print('You won') if num_players == 1 else score()
+                print(f'You won\n\n{win}') if num_players == 1 else score()
                 return
         
         guessed_letters.append(guess)
@@ -354,25 +458,19 @@ def word_guess(string, lives=10, number_of_player=1):
 
     if num_players == 1:
         print(f'Your lives are over. You lose.\nThe correct word is \'{string}\'.\nBetter luck next time.\n\n')
+        print(hang)
     else:
         if Player1:
             print(f"{player1_name}, your guess was wrong.\nThe correct word is '{string}'\n")
+            print(hang)
         else:
             print(f"{player2_name}, your guess was wrong.\nThe correct word is '{string}'\n")
+            print(hang)
 
-game_title = """
-#     #    #    #     #  #####  #     #    #    #     #     #####     #    #     # ####### 
-#     #   # #   ##    # #     # ##   ##   # #   ##    #    #     #   # #   ##   ## #       
-#     #  #   #  # #   # #       # # # #  #   #  # #   #    #        #   #  # # # # #       
-####### #     # #  #  # #  #### #  #  # #     # #  #  #    #  #### #     # #  #  # #####   
-#     # ####### #   # # #     # #     # ####### #   # #    #     # ####### #     # #       
-#     # #     # #    ## #     # #     # #     # #    ##    #     # #     # #     # #       
-#     # #     # #     #  #####  #     # #     # #     #     #####  #     # #     # #######
-"""
 
 def main():
     global word_length, dif, player1_name, player2_name
-    print(game_title)
+    print(game_title_2)
     print('\n' + f'{"*"*10}  welcome to Hangman Game  {"*"*10}'.center(100) + '\n\n')
     play = input('"1"- for 1-Player game\t\t"2" for 2-Player game\t\t"exit" - to exit the game\n>> ').strip()
     if play == '1':
