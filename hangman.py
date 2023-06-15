@@ -61,8 +61,8 @@ categories = {
     },
 }
 
-# Define the time limit (in seconds) for the round
-round_time_limit = 180  # 3 minutes
+# Define the time limit (in seconds) for the round 
+round_time_limit = 180  # 3 minutes (Default time)
 
 # Define the time limit (in seconds) for each guess
 time_limit = 15
@@ -239,19 +239,24 @@ def provide_hint(word, fill_word):
 
 
 def difficulty():
+    global round_time_limit
     # Set difficulty level
     difficulty = input('Choose difficulty level:\na) Easy[e]\t\tb) Normal[n]\t\tc) Hard[h]\n').strip()
     if difficulty.lower() in ['easy', 'e', '1']:
-        print("difficulty selected to EASY")
+        print("difficulty selected to EASY\nTotal time available : 3 minutes")
+        round_time_limit = 180  # 3 minutes
         return difficulties['easy']['word_length'], difficulties['easy']['difficulty']
-    if difficulty.lower() in ['hard', 'h', '3']:
-        print("difficulty selected to HARD")
-        return difficulties['hard']['word_length'], difficulties['hard']['difficulty']
     elif difficulty.lower() in ['normal', 'n', '2']:
-        print("difficulty selected to NORMAL")
+        print("difficulty selected to NORMAL\nTotal time available : 2 minutes")
+        round_time_limit = 120  # 2 minutes
         return difficulties['normal']['word_length'], difficulties['normal']['difficulty']
+    elif difficulty.lower() in ['hard', 'h', '3']:
+        print("difficulty selected to HARD\nTotal time available : 1 minute 30 seconds")
+        round_time_limit = 90  # 1 min 30 sec
+        return difficulties['hard']['word_length'], difficulties['hard']['difficulty']
     else:
-        print('Invalid choice. Defaulting to easy difficulty.\n"difficulty selected to EASY"')
+        print('Invalid choice. Defaulting to easy difficulty.\ndifficulty selected to EASY\nTotal time available : 3 minutes')
+        round_time_limit = 180  # 3 minutes
         return difficulties['easy']['word_length'], difficulties['easy']['difficulty']
 
 def score():

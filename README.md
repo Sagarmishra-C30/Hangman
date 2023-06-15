@@ -27,7 +27,10 @@ Hangman is a classic word-guessing game where players try to guess a hidden word
 7. If you guess the entire word correctly, you win the game.
 8. If you run out of lives before guessing the word, you lose the game.
 9. You will have 15 sec per guess. If u guess a letter after 15 sec expires, u will lose 1 life.
-10. A single round of game lasts 2 min, if u take any longer to guess, u lose.
+10. Based on difficulty, a single round of game can lasts 1.5 - 3 min, if u take any longer to guess, u lose.
+	- easy : 3 minutes
+	- normal : 2 minutes
+	- hard : 1 min 30 sec   
 9. After the game ends, you will be asked if you want to play again.
 
 ## Scoring
@@ -52,7 +55,7 @@ Choose the difficulty level based on your preference and skill level.
 - To clear the console screen during the game, you can enter "cls" as a response.
 - The game uses Unicode character "\u2665" to display a heart symbol as a representation of lives.
 - Remaning time and total life remaining so far will be displayed after each guess to help user keep track of their stats.
-- different ASCII art is used for winners and losers.
+- different ASCII art is used based on whether user wins and loses.
 Have fun playing Hangman!
 
 ## Contributing
