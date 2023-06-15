@@ -199,6 +199,11 @@ def format_time(seconds):
     time_str += f"{seconds:.2f} second(s)"
     return time_str
     
+def clear_screen():
+    if os.name == "nt":
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def display_categories():
     # Display available categories
@@ -314,10 +319,7 @@ def play_again():
             hint_counter = 3
             one_player()
         elif response.lower() == 'cls':
-            if os.name == "nt":
-                os.system('cls')
-            else:
-                os.system('clear')
+            clear_screen()
         elif response.lower() == 'reset':
             word_length, dif = difficulty()
             print(f'You have total - {dif} lives\t{heart * dif}\n'.encode(sys.stdout.encoding, errors='replace').decode(sys.stdout.encoding))
@@ -374,10 +376,7 @@ def two_player():
         if res.lower() in ['yes', 'y']:
             two_player()
         elif res.lower() == 'cls':
-            if os.name == "nt":
-                os.system('cls')
-            else:
-                os.system('clear')
+            clear_screen()
         else:
             display_score()
             print('\nThanks for playing\t\t' + game_title_1)
